@@ -2,29 +2,484 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SPARK — Date night, leveled up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SPARK — A game show for two</title>
+<meta name="description" content="SPARK is a date-night game for couples. Playful to deep, hosted by Juno your AI host — 19 games, intimate decks, and a keepsake scrapbook of your nights. Coming soon to the App Store." />
+<meta name="theme-color" content="#091421" />
+<meta property="og:title" content="SPARK — A game show for two" />
+<meta property="og:description" content="Date night, leveled up. Playful to deep, hosted by Juno. Coming soon to the App Store." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet" />
 <style>
-  :root { color-scheme: dark; }
-  body { margin:0; background:radial-gradient(120% 90% at 50% 0%, #3A1330 0%, #091421 60%); color:#E7EEF5; font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; min-height:100vh; }
-  .wrap { max-width:620px; margin:0 auto; padding:90px 24px; text-align:center; }
-  .logo { font-size:48px; font-weight:800; letter-spacing:1px; margin:0; background:linear-gradient(90deg,#FF5FA2,#C0392B); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  p.tag { color:#C9D6E2; font-size:19px; margin:10px 0 34px; }
-  .links a { display:inline-block; color:#E7EEF5; text-decoration:none; border:1px solid #314A60; border-radius:999px; padding:10px 18px; margin:6px; font-size:15px; }
-  .links a:hover { border-color:#FF5FA2; }
-  footer { color:#6E8298; font-size:13px; margin-top:48px; }
+  :root{
+    --bg:#091421; --bg2:#0B1622; --surface:#162A3E; --surface2:#223A52;
+    --pink:#E91E8C; --rose:#C0392B; --amber:#F2C14E; --violet:#8B5CF6; --teal:#2BB6C4; --blue:#3B9CF6;
+    --cream:#FDF6EC; --muted:#9FB2C2; --hair:rgba(255,255,255,.10);
+    --display:"Clash Display",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--cream);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.08;letter-spacing:-.01em;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px;}
+  .pink{color:var(--pink);}
+  .grad-text{background:linear-gradient(90deg,var(--pink),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;border:0;cursor:pointer;border-radius:14px;padding:13px 22px;color:#fff;background:linear-gradient(135deg,var(--pink),var(--rose));box-shadow:0 12px 30px rgba(233,30,140,.35);transition:transform .15s ease, box-shadow .15s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(233,30,140,.45);}
+  .btn.ghost{background:transparent;border:1px solid var(--hair);box-shadow:none;color:var(--cream);}
+  .pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);background:rgba(233,30,140,.12);border:1px solid rgba(233,30,140,.25);border-radius:999px;padding:6px 14px;}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(9,20,33,.72);border-bottom:1px solid var(--hair);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.5px;display:flex;align-items:center;gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--rose));box-shadow:0 0 16px var(--pink);}
+  .navlinks{display:flex;gap:26px;align-items:center;}
+  .navlinks a{color:var(--muted);font-size:14px;font-weight:600;transition:color .15s;}
+  .navlinks a:hover{color:var(--cream);}
+  @media(max-width:760px){.navlinks a:not(.btn){display:none;}}
+
+  /* Hero */
+  .hero{position:relative;padding:74px 0 40px;overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+    radial-gradient(90% 60% at 75% -10%, rgba(233,30,140,.30), transparent 60%),
+    radial-gradient(80% 60% at -5% 20%, rgba(139,92,246,.20), transparent 55%);}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;}
+  .hero h1{font-size:clamp(40px,6vw,68px);}
+  .hero p.lead{margin-top:18px;font-size:19px;color:var(--muted);max-width:520px;}
+  .cta-row{margin-top:30px;display:flex;flex-direction:column;gap:12px;max-width:440px;}
+  .wl-form{display:flex;gap:8px;}
+  .wl-form input{flex:1;min-width:0;background:var(--surface);border:1px solid var(--hair);border-radius:14px;padding:13px 16px;color:var(--cream);font-size:15px;font-family:var(--body);}
+  .wl-form input::placeholder{color:var(--muted);}
+  .wl-note{font-size:13px;color:var(--muted);}
+  .wl-msg{font-size:14px;font-weight:600;min-height:20px;}
+  .store-pill{display:inline-flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--hair);border-radius:14px;padding:10px 16px;font-size:14px;font-weight:600;color:var(--cream);width:max-content;}
+  .store-pill small{color:var(--muted);font-weight:500;display:block;font-size:11px;}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;text-align:center;}.cta-row{margin-inline:auto;}.hero p.lead{margin-inline:auto;}.hero-phone{order:-1;}}
+
+  /* Phone mockup */
+  .hero-phone{display:flex;justify-content:center;}
+  .phone{width:300px;max-width:84vw;aspect-ratio:300/620;border-radius:46px;padding:12px;background:linear-gradient(160deg,#2a2f3a,#0d0f14);box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12);position:relative;}
+  .phone::after{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#05080d;border-radius:16px;z-index:3;}
+  .screen{width:100%;height:100%;border-radius:35px;overflow:hidden;position:relative;background:linear-gradient(180deg,#10202f,#0a1622);}
+  .screen .glow{position:absolute;inset:0;background:radial-gradient(80% 40% at 70% 0%, rgba(233,30,140,.28), transparent 60%);pointer-events:none;}
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 0;font-size:12px;font-weight:700;color:var(--cream);}
+  .scr-pad{padding:14px 16px;position:relative;height:100%;}
+  .scr-h{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+  .scr-title{font-family:var(--display);font-weight:700;font-size:18px;}
+  .streak{font-size:11px;font-weight:700;color:var(--amber);background:rgba(242,193,78,.12);border-radius:999px;padding:4px 9px;}
+  .eyebrow{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--pink);}
+  .mini-muted{color:var(--muted);font-size:11px;}
+  .card2{background:var(--surface2);border:1px solid var(--hair);border-radius:18px;padding:13px;}
+  .gicon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,var(--pink),var(--rose));box-shadow:0 8px 20px rgba(233,30,140,.35);}
+  .pillbtn{font-size:11px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--pink),var(--rose));border-radius:999px;padding:6px 12px;}
+  .tabbar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:12px 0 18px;background:rgba(9,20,33,.7);border-top:1px solid var(--hair);font-size:9px;color:var(--muted);}
+  .tabbar .on{color:var(--pink);}
+  .tabbar span{display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600;}
+  .tabbar i{font-size:15px;font-style:normal;}
+
+  /* Sections */
+  section{padding:64px 0;}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 14px;}
+  .sec-head h2{font-size:clamp(28px,4vw,42px);}
+  .sec-head p{margin-top:12px;color:var(--muted);font-size:17px;}
+  .trust{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;color:var(--muted);font-size:13px;font-weight:600;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:18px 0;}
+  .trust b{color:var(--cream);}
+
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:46px 0;}
+  .feat:nth-child(even) .feat-copy{order:2;}
+  .feat-copy .pill{margin-bottom:16px;}
+  .feat-copy h3{font-size:clamp(26px,3.4vw,36px);}
+  .feat-copy p{margin-top:14px;color:var(--muted);font-size:17px;}
+  .feat-copy ul{margin-top:18px;list-style:none;display:grid;gap:10px;}
+  .feat-copy li{display:flex;gap:10px;align-items:flex-start;font-size:15px;}
+  .feat-copy li::before{content:"✦";color:var(--pink);font-size:13px;margin-top:3px;}
+  .feat-art{display:flex;justify-content:center;}
+  @media(max-width:860px){.feat{grid-template-columns:1fr;gap:28px;}.feat:nth-child(even) .feat-copy{order:0;}.feat-art{order:-1;}}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px;}
+  .step{background:var(--surface);border:1px solid var(--hair);border-radius:20px;padding:24px;text-align:center;}
+  .step .n{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:var(--display);font-weight:700;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--pink),var(--rose));}
+  .step h4{font-family:var(--display);font-size:18px;margin-bottom:6px;}
+  .step p{color:var(--muted);font-size:14px;}
+  @media(max-width:760px){.steps{grid-template-columns:1fr;}}
+
+  /* quotes */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;}
+  .quote{background:var(--surface);border:1px solid var(--hair);border-radius:20px;padding:22px;}
+  .quote p{font-size:15px;}
+  .quote .who{margin-top:14px;display:flex;align-items:center;gap:10px;}
+  .avt{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:14px;}
+  .quote .who b{font-size:13px;}.quote .who span{font-size:12px;color:var(--muted);}
+  @media(max-width:760px){.quotes{grid-template-columns:1fr;}}
+
+  /* stories */
+  .story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;}
+  .story{background:var(--surface);border:1px solid var(--hair);border-radius:20px;overflow:hidden;transition:transform .15s, border-color .15s;}
+  .story:hover{transform:translateY(-4px);border-color:rgba(233,30,140,.4);}
+  .story .top{height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;}
+  .story .body{padding:18px;}
+  .story h4{font-family:var(--display);font-size:17px;line-height:1.25;}
+  .story p{color:var(--muted);font-size:13px;margin-top:8px;}
+  .story .more{margin-top:12px;color:var(--pink);font-size:13px;font-weight:700;}
+  @media(max-width:760px){.story-grid{grid-template-columns:1fr;}}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:24px auto 0;}
+  .qa{border-bottom:1px solid var(--hair);}
+  .qa button{width:100%;text-align:left;background:none;border:0;color:var(--cream);font-family:var(--body);font-size:17px;font-weight:600;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;}
+  .qa .ans{max-height:0;overflow:hidden;transition:max-height .28s ease;color:var(--muted);font-size:15px;}
+  .qa.open .ans{max-height:260px;padding-bottom:18px;}
+  .qa .chev{transition:transform .25s;color:var(--pink);font-size:20px;}
+  .qa.open .chev{transform:rotate(45deg);}
+
+  /* CTA band + footer */
+  .band{margin:20px 0;background:linear-gradient(135deg,rgba(233,30,140,.16),rgba(139,92,246,.12));border:1px solid var(--hair);border-radius:28px;padding:48px 28px;text-align:center;}
+  .band h2{font-size:clamp(26px,4vw,40px);}
+  .band p{color:var(--muted);margin-top:10px;}
+  .band .wl-form{max-width:440px;margin:22px auto 0;}
+  footer{border-top:1px solid var(--hair);padding:40px 0;color:var(--muted);font-size:14px;}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center;}
+  footer a{color:var(--muted);}footer a:hover{color:var(--cream);}
+  footer .links{display:flex;gap:20px;flex-wrap:wrap;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
 </style>
 </head>
 <body>
+
+<nav>
   <div class="wrap">
-    <h1 class="logo">SPARK</h1>
-    <p class="tag">A game show for two. Playful to deep — hosted by Juno, your AI date‑night host.</p>
+    <a class="logo" href="#top"><span class="dot"></span>SPARK</a>
+    <div class="navlinks">
+      <a href="#games">Games</a>
+      <a href="#features">Features</a>
+      <a href="stories.html">Stories</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn" href="#waitlist">Join the waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<a id="top"></a>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill">Coming soon · iOS</span>
+      <h1 style="margin-top:18px">Date night,<br><span class="grad-text">leveled up.</span></h1>
+      <p class="lead">SPARK is a game show for two. Playful to deep, hosted by <b style="color:var(--cream)">Juno</b> — your AI date‑night host. 19 games, intimate decks, and a keepsake scrapbook of every night.</p>
+      <div class="cta-row" id="waitlist">
+        <form class="wl-form" data-wl>
+          <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+          <button class="btn" type="submit">Join the waitlist</button>
+        </form>
+        <div class="wl-msg" data-wl-msg></div>
+        <div class="store-pill">🍎 <div><small>Coming soon to the</small><b>App Store</b></div></div>
+        <div class="wl-note">Be the first couples to play. No spam — just a launch‑day ping.</div>
+      </div>
+    </div>
+    <div class="hero-phone">
+      <!-- HOME mockup -->
+      <div class="phone"><div class="screen"><div class="glow"></div>
+        <div class="sb"><span>9:41</span><span>● ● ●</span></div>
+        <div class="scr-pad">
+          <div class="scr-h">
+            <div class="scr-title">Evening,<br>Ristina &amp; Biswas</div>
+            <div class="streak">🔥 12</div>
+          </div>
+          <div class="mini-muted" style="margin-top:6px">Juno has tonight all planned out.</div>
+          <div class="eyebrow" style="margin-top:16px">Tonight's pick</div>
+          <div class="card2" style="margin-top:8px;border-color:rgba(233,30,140,.3)">
+            <div style="display:flex;gap:11px;align-items:flex-start">
+              <div class="gicon">💬</div>
+              <div style="flex:1">
+                <div style="font-weight:700;font-size:14px">Skip the Small Talk</div>
+                <div class="mini-muted">From hello to honest in 15 min.</div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:11px">
+              <span class="mini-muted">⏱ 15 min · 💞 First Date</span>
+              <span class="pillbtn">▶ Start</span>
+            </div>
+          </div>
+          <div class="card2" style="margin-top:10px;display:flex;justify-content:center;color:var(--cream);font-weight:700;font-size:13px">🎲 Spin the Wheel</div>
+          <div class="card2" style="margin-top:10px;display:flex;gap:10px;align-items:center">
+            <div style="width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2a4a68,#13283a)"></div>
+            <div style="flex:1"><div style="font-weight:700;font-size:12px">Talk to Juno</div><div class="mini-muted">Ask for a game, or just banter</div></div>
+            <span class="mini-muted">›</span>
+          </div>
+        </div>
+        <div class="tabbar"><span class="on"><i>▶</i>Play</span><span><i>▦</i>Library</span><span><i>❑</i>Memories</span><span><i>♥</i>You Two</span></div>
+      </div></div>
+    </div>
+  </div>
+</header>
+
+<div class="trust wrap" style="max-width:1120px">
+  <span><b>Two phones</b>, in sync</span>
+  <span><b>iOS</b> · 17+</span>
+  <span><b>Private</b> by design</span>
+  <span>Hosted by <b>Juno</b>, your AI host</span>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="pill">Why couples love it</span>
+      <h2 style="margin-top:14px">Not another question app.</h2>
+      <p>Every night feels made for the two of you — because it is.</p>
+    </div>
+
+    <!-- Feature 1: Juno -->
+    <div class="feat reveal">
+      <div class="feat-copy">
+        <span class="pill">Your AI host</span>
+        <h3>Juno runs the night.</h3>
+        <p>A warm, witty host who reads your answers, teases gently, and writes prompts just for you two — so it never feels like a script.</p>
+        <ul><li>Reacts to what you actually say</li><li>Custom themes — "our trip to Italy," "keep it deep"</li><li>A voice you'll want to hear again</li></ul>
+      </div>
+      <div class="feat-art">
+        <!-- GAME IN PLAY mockup -->
+        <div class="phone"><div class="screen"><div class="glow"></div>
+          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
+          <div class="scr-pad">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span class="mini-muted">✕</span><span class="mini-muted">Question 3 of 12</span><span class="streak" style="color:var(--pink);background:rgba(233,30,140,.12)">2&nbsp;vs&nbsp;1</span></div>
+            <div class="card2" style="margin-top:14px;display:flex;gap:9px;align-items:center;background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.3)">
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--rose))"></div>
+              <span style="font-size:12px;font-weight:600">Next up. This one's good. <span style="opacity:.6">🔊</span></span>
+            </div>
+            <div style="margin-top:18px;border-radius:22px;padding:26px 18px;min-height:230px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#37c0c9,#1f8b93);box-shadow:0 16px 40px rgba(0,0,0,.4)">
+              <div style="font-family:var(--display);font-weight:700;font-size:21px;color:#fff;line-height:1.2">What's a small thing that made you smile recently?</div>
+            </div>
+            <div class="mini-muted" style="text-align:center;margin-top:12px">Answer out loud — take your time.</div>
+            <div style="display:flex;gap:10px;margin-top:14px">
+              <div class="card2" style="flex:1;text-align:center;font-weight:700;font-size:13px">▶▶ Skip</div>
+              <div style="flex:1;text-align:center;font-weight:700;font-size:13px;color:#fff;border-radius:18px;padding:13px;background:linear-gradient(135deg,var(--pink),var(--rose))">→ Done</div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Feature 2: games -->
+    <div class="feat reveal" id="games">
+      <div class="feat-copy">
+        <span class="pill">19 games + decks</span>
+        <h3>Playful to deep, on tap.</h3>
+        <p>Truth or Dare, 36 Questions, Never Have I Ever, Mirror Mirror, Love Letter, Fear Pong — plus swappable decks that drop often. Every game escalates warm → connected → deep.</p>
+        <ul><li>Two‑phone sync, or one‑phone pass‑and‑play</li><li>A fresh set every time — it never repeats</li><li>Curated decks: Date Night, Deep Dive, After Dark</li></ul>
+      </div>
+      <div class="feat-art">
+        <!-- LIBRARY-ish grid mockup -->
+        <div class="phone"><div class="screen"><div class="glow"></div>
+          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
+          <div class="scr-pad">
+            <div class="scr-title" style="margin-top:8px">Library</div>
+            <div style="display:flex;gap:7px;margin-top:12px;flex-wrap:wrap">
+              <span class="pillbtn">All</span><span class="card2" style="padding:6px 11px;font-size:11px;color:var(--muted)">🧠 Know Me</span><span class="card2" style="padding:6px 11px;font-size:11px;color:var(--muted)">🌶️ Spicy</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px">
+              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px">🎯</div><div style="font-weight:700;font-size:12px;margin-top:8px">Truth or Dare</div><div class="mini-muted">🔥🔥🔥</div></div>
+              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px;background:linear-gradient(135deg,var(--violet),#5b3fa8)">💌</div><div style="font-weight:700;font-size:12px;margin-top:8px">36 Questions</div><div class="mini-muted">15 min</div></div>
+              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px;background:linear-gradient(135deg,var(--teal),#1c7a82)">🪞</div><div style="font-weight:700;font-size:12px;margin-top:8px">Mirror Mirror</div><div class="mini-muted">10 min</div></div>
+              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px;background:linear-gradient(135deg,var(--amber),#c8952f)">⚡</div><div style="font-weight:700;font-size:12px;margin-top:8px">Fear Pong</div><div class="mini-muted">🔥🔥</div></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Feature 3: intimacy -->
+    <div class="feat reveal">
+      <div class="feat-copy">
+        <span class="pill">Date Night &amp; After Dark · 17+</span>
+        <h3>For the nights you stay in.</h3>
+        <p>Tasteful, couple‑first prompts that warm from flirty to deeply intimate. Suggestive, never explicit — and the spicier decks sit behind an in‑app 18+ gate.</p>
+        <ul><li>Warm → romantic → deep desire, on a real arc</li><li>Brings you closer, not a generic interview</li><li>You're always in control of the heat</li></ul>
+      </div>
+      <div class="feat-art">
+        <div class="phone"><div class="screen"><div class="glow" style="background:radial-gradient(80% 40% at 70% 0%, rgba(192,57,43,.4), transparent 60%)"></div>
+          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
+          <div class="scr-pad">
+            <div class="eyebrow" style="margin-top:8px;color:var(--rose)">Date Night Deck</div>
+            <div style="margin-top:14px;border-radius:22px;padding:26px 18px;min-height:250px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:radial-gradient(120% 80% at 50% 0%,#3a1330,#15121f);border:1px solid rgba(233,30,140,.3)">
+              <div style="font-size:34px">💞</div>
+              <div style="font-family:var(--display);font-weight:700;font-size:20px;margin-top:14px;line-height:1.25">What moment made you realize you were falling for me?</div>
+              <div class="mini-muted" style="margin-top:14px">Tap when you've shared</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:6px;margin-top:16px"><span style="width:18px;height:5px;border-radius:9px;background:var(--pink)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--surface2)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--surface2)"></span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Feature 4: keepsakes -->
+    <div class="feat reveal">
+      <div class="feat-copy">
+        <span class="pill">Keepsakes</span>
+        <h3>Every night becomes a memory.</h3>
+        <p>Snap a reaction photo, leave a voice note, write a caption. They land in a disposable‑camera scrapbook you can revisit, turn into a recap video, or share.</p>
+        <ul><li>A polaroid wall that fills as you play</li><li>Weekly / monthly / yearly recap videos</li><li>Delete anything, anytime — it's yours</li></ul>
+      </div>
+      <div class="feat-art">
+        <div class="phone"><div class="screen"><div class="glow"></div>
+          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
+          <div class="scr-pad">
+            <div class="scr-title" style="margin-top:8px">Memories</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(-3deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#7aa37a,#3c5c3c);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">🥰</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">Truth or Dare</div></div>
+              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(2deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#a8694a,#5c3a2a);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">💞</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">36 Questions</div></div>
+              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(2deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#4a6a88,#23283a);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">🫶</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">Fear Pong</div></div>
+              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(-2deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#c0506f,#6a2740);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">🥰</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">Date Night</div></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Feature 5: you two -->
+    <div class="feat reveal">
+      <div class="feat-copy">
+        <span class="pill">You Two</span>
+        <h3>A little friendly rivalry.</h3>
+        <p>Streaks, days together, games played — and a head‑to‑head scoreboard with a crown for whoever's on top. Bragging rights included.</p>
+        <ul><li>Lifetime wins + current win streaks</li><li>Nights · days together · games played</li><li>Your two faces, your whole story</li></ul>
+      </div>
+      <div class="feat-art">
+        <div class="phone"><div class="screen"><div class="glow"></div>
+          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
+          <div class="scr-pad">
+            <div class="scr-title" style="margin-top:8px;text-align:center">Ristina &amp; Biswas</div>
+            <div style="display:flex;gap:9px;justify-content:center;margin-top:12px">
+              <div class="card2" style="text-align:center;flex:1;padding:11px"><div style="font-size:15px">🔥</div><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--amber)">12</div><div class="mini-muted">Nights</div></div>
+              <div class="card2" style="text-align:center;flex:1;padding:11px"><div style="font-size:15px">📅</div><div style="font-family:var(--display);font-weight:700;font-size:18px">482</div><div class="mini-muted">Days</div></div>
+              <div class="card2" style="text-align:center;flex:1;padding:11px"><div style="font-size:15px">🎮</div><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--pink)">86</div><div class="mini-muted">Games</div></div>
+            </div>
+            <div class="eyebrow" style="margin-top:16px">Head to head</div>
+            <div style="height:11px;border-radius:9px;overflow:hidden;display:flex;margin-top:8px"><span style="width:40%;background:var(--pink)"></span><span style="width:60%;background:var(--blue)"></span></div>
+            <div class="card2" style="margin-top:10px;display:flex;align-items:center;gap:10px"><div class="avt" style="background:linear-gradient(135deg,#a64bff,#6a2ea8)">R</div><div style="flex:1"><div style="font-weight:700;font-size:13px">Ristina</div><div class="mini-muted">Together since Oct 2022</div></div><div style="text-align:center"><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--pink)">9</div><div class="mini-muted" style="font-size:9px">WINS</div></div></div>
+            <div class="card2" style="margin-top:8px;display:flex;align-items:center;gap:10px;border-color:rgba(59,156,246,.45)"><div class="avt" style="background:linear-gradient(135deg,#3b9cf6,#2155a8);position:relative">B<span style="position:absolute;top:-7px;right:-7px;font-size:11px">👑</span></div><div style="flex:1"><div style="font-weight:700;font-size:13px">Biswas</div><div class="mini-muted">🔥 3‑game win streak</div></div><div style="text-align:center"><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--blue)">13</div><div class="mini-muted" style="font-size:9px">WINS</div></div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background:linear-gradient(180deg,transparent,rgba(139,92,246,.06),transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="pill">Dead simple</span><h2 style="margin-top:14px">From download to date night in a minute.</h2></div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h4>Pair your phones</h4><p>One of you starts a couple and shares a code. The other joins. That's it.</p></div>
+      <div class="step reveal"><div class="n">2</div><h4>Pick tonight's game</h4><p>Let Juno suggest, spin the wheel, or browse the library. Set the mood.</p></div>
+      <div class="step reveal"><div class="n">3</div><h4>Play &amp; keep the moment</h4><p>Answer out loud, react, snap a keepsake. Your scrapbook fills as you go.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF (aspirational, honest) -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="pill">Made for two</span><h2 style="margin-top:14px">For couples who want more than small talk.</h2><p>Whether you're three weeks or thirty years in.</p></div>
+    <div class="quotes">
+      <div class="quote reveal"><p>"It's the one app we open <i>together</i> — not to scroll, but to actually talk."</p><div class="who"><div class="avt" style="background:linear-gradient(135deg,var(--pink),var(--rose))">A</div><div><b>Built for new couples</b><br><span>From hello to honest</span></div></div></div>
+      <div class="quote reveal"><p>"Date night without leaving the couch — and we still feel closer after."</p><div class="who"><div class="avt" style="background:linear-gradient(135deg,var(--violet),#5b3fa8)">L</div><div><b>Built for busy couples</b><br><span>15 minutes, any night</span></div></div></div>
+      <div class="quote reveal"><p>"The keepsakes get us. Looking back at our nights is half the joy."</p><div class="who"><div class="avt" style="background:linear-gradient(135deg,var(--teal),#1c7a82)">M</div><div><b>Built for the long haul</b><br><span>Years of memories</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section id="stories" style="background:linear-gradient(180deg,transparent,rgba(233,30,140,.05),transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="pill">Stories</span><h2 style="margin-top:14px">Ideas for your next night in.</h2></div>
+    <div class="story-grid">
+      <a class="story reveal" href="story-questions.html"><div class="top" style="background:linear-gradient(135deg,#3a1330,#15121f)">💬</div><div class="body"><h4>50 questions that go deeper than small talk</h4><p>The prompts that actually open someone up.</p><div class="more">Read →</div></div></a>
+      <a class="story reveal" href="story-busy.html"><div class="top" style="background:linear-gradient(135deg,#0e2e3a,#0b1622)">⏳</div><div class="body"><h4>How to keep the spark alive on a busy week</h4><p>Tiny rituals that beat grand gestures.</p><div class="more">Read →</div></div></a>
+      <a class="story reveal" href="story-stayin.html"><div class="top" style="background:linear-gradient(135deg,#3a0e1b,#0b1622)">🛋️</div><div class="body"><h4>Date‑night ideas for nights you'd rather stay in</h4><p>No reservation, no pants required.</p><div class="more">Read →</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="pill">Questions</span><h2 style="margin-top:14px">Good to know.</h2></div>
+    <div class="faq">
+      <div class="qa"><button>Do we need two phones? <span class="chev">+</span></button><div class="ans">It's best on two — you each play from your own phone and they stay in sync. But several games have a "Play on one phone" pass‑and‑play mode if you only have one.</div></div>
+      <div class="qa"><button>Is it appropriate? <span class="chev">+</span></button><div class="ans">SPARK is 17+. Most of it is warm and playful; the spicier decks are suggestive (never explicit) and sit behind an in‑app 18+ gate you choose to unlock.</div></div>
+      <div class="qa"><button>What's free, and what's Premium? <span class="chev">+</span></button><div class="ans">The core games and your scrapbook are free. SPARK Premium unlocks every game and deck, custom AI themes, spicy mode, and unlimited memories — Weekly or Yearly, each with a 3‑day free trial.</div></div>
+      <div class="qa"><button>Is our data private? <span class="chev">+</span></button><div class="ans">Yes. Your photos, notes, and answers are private to the two of you. We don't sell data or run ads, and you can delete any memory — or your whole account — anytime in the app. See our Privacy Policy.</div></div>
+      <div class="qa"><button>When does it launch? <span class="chev">+</span></button><div class="ans">Soon, on the iOS App Store. Join the waitlist and we'll ping you the day it's live.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA band -->
+<div class="wrap">
+  <div class="band reveal">
+    <h2>Be the first couples to play.</h2>
+    <p>Join the waitlist — we'll let you know the moment SPARK lands.</p>
+    <form class="wl-form" data-wl>
+      <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required />
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <button class="btn" type="submit">Join the waitlist</button>
+    </form>
+    <div class="wl-msg" data-wl-msg></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>SPARK</div>
     <div class="links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Use</a>
+      <a href="stories.html">Stories</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
       <a href="support.html">Support</a>
     </div>
-    <footer>© 2026 SPARK</footer>
+    <div>© 2026 SPARK</div>
   </div>
+</footer>
+
+<script>
+  // Waitlist
+  const WAITLIST_URL = "https://wary-sockeye-157.convex.site/waitlist";
+  document.querySelectorAll("form[data-wl]").forEach((form) => {
+    const msg = form.parentElement.querySelector("[data-wl-msg]");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      const btn = form.querySelector("button");
+      btn.disabled = true; if (msg) { msg.style.color = "#9FB2C2"; msg.textContent = "Adding you…"; }
+      try {
+        const res = await fetch(WAITLIST_URL, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: data.email, website: data.website, source: "landing" }),
+        });
+        const j = await res.json();
+        if (j.ok) { form.reset(); if (msg) { msg.style.color = "#2ECC71"; msg.textContent = "You're on the list 💕 See you on launch day."; } }
+        else { if (msg) { msg.style.color = "#F2C14E"; msg.textContent = j.error || "Hmm, try that again."; } }
+      } catch { if (msg) { msg.style.color = "#F2C14E"; msg.textContent = "Network hiccup — try again."; } }
+      btn.disabled = false;
+    });
+  });
+  // FAQ accordion
+  document.querySelectorAll(".qa button").forEach((b) =>
+    b.addEventListener("click", () => b.parentElement.classList.toggle("open")));
+  // Reveal on scroll
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
 </body>
 </html>
