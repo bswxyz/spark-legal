@@ -64,10 +64,24 @@
 
   /* Phone mockup */
   .hero-phone{display:flex;justify-content:center;}
-  .phone{width:300px;max-width:84vw;aspect-ratio:300/620;border-radius:46px;padding:12px;background:linear-gradient(160deg,#2a2f3a,#0d0f14);box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12);position:relative;}
-  .phone::after{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#05080d;border-radius:16px;z-index:3;}
-  .screen{width:100%;height:100%;border-radius:35px;overflow:hidden;position:relative;background:linear-gradient(180deg,#10202f,#0a1622);}
+  .phone{width:300px;max-width:84vw;aspect-ratio:300/645;border-radius:46px;padding:10px;background:linear-gradient(160deg,#2a2f3a,#0d0f14);box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12);position:relative;}
+  .screen{width:100%;height:100%;border-radius:37px;overflow:hidden;position:relative;background:linear-gradient(180deg,#10202f,#0a1622);}
   .screen .glow{position:absolute;inset:0;background:radial-gradient(80% 40% at 70% 0%, rgba(233,30,140,.28), transparent 60%);pointer-events:none;}
+  /* Real app screenshots inside the bezel */
+  .shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  /* "Try one round" demo — mirrors the app's depth ramp (teal → rose → purple) */
+  .demo-wrap{max-width:560px;margin:0 auto;}
+  .demo-meter{display:flex;gap:6px;margin-bottom:18px;}
+  .demo-meter span{flex:1;height:6px;border-radius:9px;background:var(--surface);transition:background .5s;}
+  .demo-meter span.f0{background:#2BB6C4;}
+  .demo-meter span.f1{background:var(--pink);}
+  .demo-meter span.f2{background:#A64BFF;}
+  .demo-card{border-radius:26px;padding:44px 28px;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;box-shadow:0 24px 60px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.14);}
+  .demo-badge{font-size:11px;font-weight:700;letter-spacing:2.5px;color:#fff;background:rgba(255,255,255,.18);padding:6px 14px;border-radius:999px;}
+  .demo-q{font-family:var(--display);font-weight:600;font-size:clamp(20px,3.4vw,27px);color:#fff;line-height:1.25;}
+  .demo-next{margin-top:22px;display:flex;justify-content:center;}
+  .demo-card.enter{animation:dealIn .5s cubic-bezier(.2,.8,.3,1.1);}
+  @keyframes dealIn{from{opacity:0;transform:translateY(22px) rotate(-3deg) scale(.94);}to{opacity:1;transform:none;}}
   .sb{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 0;font-size:12px;font-weight:700;color:var(--cream);}
   .scr-pad{padding:14px 16px;position:relative;height:100%;}
   .scr-h{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
@@ -192,37 +206,9 @@
       </div>
     </div>
     <div class="hero-phone">
-      <!-- HOME mockup -->
-      <div class="phone"><div class="screen"><div class="glow"></div>
-        <div class="sb"><span>9:41</span><span>● ● ●</span></div>
-        <div class="scr-pad">
-          <div class="scr-h">
-            <div class="scr-title">Evening,<br>Romeo &amp; Juliet</div>
-            <div class="streak">🔥 12</div>
-          </div>
-          <div class="mini-muted" style="margin-top:6px">Juno has tonight all planned out.</div>
-          <div class="eyebrow" style="margin-top:16px">Tonight's pick</div>
-          <div class="card2" style="margin-top:8px;border-color:rgba(233,30,140,.3)">
-            <div style="display:flex;gap:11px;align-items:flex-start">
-              <div class="gicon">💬</div>
-              <div style="flex:1">
-                <div style="font-weight:700;font-size:14px">Skip the Small Talk</div>
-                <div class="mini-muted">From hello to honest in 15 min.</div>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:11px">
-              <span class="mini-muted">⏱ 15 min · 💞 First Date</span>
-              <span class="pillbtn">▶ Start</span>
-            </div>
-          </div>
-          <div class="card2" style="margin-top:10px;display:flex;justify-content:center;color:var(--cream);font-weight:700;font-size:13px">🎲 Spin the Wheel</div>
-          <div class="card2" style="margin-top:10px;display:flex;gap:10px;align-items:center">
-            <div style="width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2a4a68,#13283a)"></div>
-            <div style="flex:1"><div style="font-weight:700;font-size:12px">Talk to Juno</div><div class="mini-muted">Ask for a game, or just banter</div></div>
-            <span class="mini-muted">›</span>
-          </div>
-        </div>
-        <div class="tabbar"><span class="on"><i>▶</i>Play</span><span><i>▦</i>Library</span><span><i>❑</i>Memories</span><span><i>♥</i>You Two</span></div>
+      <!-- HOME — real app screenshot -->
+      <div class="phone"><div class="screen">
+        <img class="shot" src="shots/home.jpg" alt="SPARK home screen — Romeo &amp; Juliet's night: tonight's pick, Spin the Wheel, Talk to Juno, and this week's keepsakes" />
       </div></div>
     </div>
   </div>
@@ -253,24 +239,9 @@
         <ul><li>Reacts to what you actually say</li><li>Custom themes — "our trip to Italy," "keep it deep"</li><li>A voice you'll want to hear again</li></ul>
       </div>
       <div class="feat-art">
-        <!-- GAME IN PLAY mockup -->
-        <div class="phone"><div class="screen"><div class="glow"></div>
-          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
-          <div class="scr-pad">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span class="mini-muted">✕</span><span class="mini-muted">Question 3 of 12</span><span class="streak" style="color:var(--pink);background:rgba(233,30,140,.12)">2&nbsp;vs&nbsp;1</span></div>
-            <div class="card2" style="margin-top:14px;display:flex;gap:9px;align-items:center;background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.3)">
-              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--rose))"></div>
-              <span style="font-size:12px;font-weight:600">Next up. This one's good. <span style="opacity:.6">🔊</span></span>
-            </div>
-            <div style="margin-top:18px;border-radius:22px;padding:26px 18px;min-height:230px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#37c0c9,#1f8b93);box-shadow:0 16px 40px rgba(0,0,0,.4)">
-              <div style="font-family:var(--display);font-weight:700;font-size:21px;color:#fff;line-height:1.2">What's a small thing that made you smile recently?</div>
-            </div>
-            <div class="mini-muted" style="text-align:center;margin-top:12px">Answer out loud — take your time.</div>
-            <div style="display:flex;gap:10px;margin-top:14px">
-              <div class="card2" style="flex:1;text-align:center;font-weight:700;font-size:13px">▶▶ Skip</div>
-              <div style="flex:1;text-align:center;font-weight:700;font-size:13px;color:#fff;border-radius:18px;padding:13px;background:linear-gradient(135deg,var(--pink),var(--rose))">→ Done</div>
-            </div>
-          </div>
+        <!-- JUNO IN PLAY — real app screenshot -->
+        <div class="phone"><div class="screen">
+          <img class="shot" loading="lazy" src="shots/game_flirty.jpg" alt="Juno hosting a round live — teasing Romeo and Juliet by name as the question card warms up" />
         </div></div>
       </div>
     </div>
@@ -284,21 +255,9 @@
         <ul><li>Two‑phone sync, or one‑phone pass‑and‑play</li><li>A fresh set every time — it never repeats</li><li>Curated decks: Date Night, Deep Dive, After Dark</li></ul>
       </div>
       <div class="feat-art">
-        <!-- LIBRARY-ish grid mockup -->
-        <div class="phone"><div class="screen"><div class="glow"></div>
-          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
-          <div class="scr-pad">
-            <div class="scr-title" style="margin-top:8px">Library</div>
-            <div style="display:flex;gap:7px;margin-top:12px;flex-wrap:wrap">
-              <span class="pillbtn">All</span><span class="card2" style="padding:6px 11px;font-size:11px;color:var(--muted)">🧠 Know Me</span><span class="card2" style="padding:6px 11px;font-size:11px;color:var(--muted)">🌶️ Spicy</span>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px">
-              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px">🎯</div><div style="font-weight:700;font-size:12px;margin-top:8px">Truth or Dare</div><div class="mini-muted">🔥🔥🔥</div></div>
-              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px;background:linear-gradient(135deg,var(--violet),#5b3fa8)">💌</div><div style="font-weight:700;font-size:12px;margin-top:8px">36 Questions</div><div class="mini-muted">15 min</div></div>
-              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px;background:linear-gradient(135deg,var(--teal),#1c7a82)">🪞</div><div style="font-weight:700;font-size:12px;margin-top:8px">Mirror Mirror</div><div class="mini-muted">10 min</div></div>
-              <div class="card2"><div class="gicon" style="font-size:16px;width:34px;height:34px;background:linear-gradient(135deg,var(--amber),#c8952f)">⚡</div><div style="font-weight:700;font-size:12px;margin-top:8px">Fear Pong</div><div class="mini-muted">🔥🔥</div></div>
-            </div>
-          </div>
+        <!-- LIBRARY — real app screenshot -->
+        <div class="phone"><div class="screen">
+          <img class="shot" loading="lazy" src="shots/library.jpg" alt="The SPARK library — 19 games with category filters and heat ratings" />
         </div></div>
       </div>
     </div>
@@ -312,17 +271,9 @@
         <ul><li>Warm → romantic → deep desire, on a real arc</li><li>Brings you closer, not a generic interview</li><li>You're always in control of the heat</li></ul>
       </div>
       <div class="feat-art">
-        <div class="phone"><div class="screen"><div class="glow" style="background:radial-gradient(80% 40% at 70% 0%, rgba(192,57,43,.4), transparent 60%)"></div>
-          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
-          <div class="scr-pad">
-            <div class="eyebrow" style="margin-top:8px;color:var(--rose)">Date Night Deck</div>
-            <div style="margin-top:14px;border-radius:22px;padding:26px 18px;min-height:250px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:radial-gradient(120% 80% at 50% 0%,#3a1330,#15121f);border:1px solid rgba(233,30,140,.3)">
-              <div style="font-size:34px">💞</div>
-              <div style="font-family:var(--display);font-weight:700;font-size:20px;margin-top:14px;line-height:1.25">What moment made you realize you were falling for me?</div>
-              <div class="mini-muted" style="margin-top:14px">Tap when you've shared</div>
-            </div>
-            <div style="display:flex;justify-content:center;gap:6px;margin-top:16px"><span style="width:18px;height:5px;border-radius:9px;background:var(--pink)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--surface2)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--surface2)"></span></div>
-          </div>
+        <!-- GAME IN PLAY — real app screenshot -->
+        <div class="phone"><div class="screen">
+          <img class="shot" loading="lazy" src="shots/game_deep.jpg" alt="A round in play — the question card heats up as the night goes deeper" />
         </div></div>
       </div>
     </div>
@@ -336,17 +287,9 @@
         <ul><li>A polaroid wall that fills as you play</li><li>Weekly / monthly / yearly recap videos</li><li>Delete anything, anytime — it's yours</li></ul>
       </div>
       <div class="feat-art">
-        <div class="phone"><div class="screen"><div class="glow"></div>
-          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
-          <div class="scr-pad">
-            <div class="scr-title" style="margin-top:8px">Memories</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
-              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(-3deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#7aa37a,#3c5c3c);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">🥰</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">Truth or Dare</div></div>
-              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(2deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#a8694a,#5c3a2a);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">💞</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">36 Questions</div></div>
-              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(2deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#4a6a88,#23283a);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">🫶</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">Fear Pong</div></div>
-              <div style="background:#F4EEE2;border-radius:9px;padding:7px;transform:rotate(-2deg);box-shadow:0 10px 24px rgba(0,0,0,.45)"><div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,#c0506f,#6a2740);position:relative"><span style="position:absolute;top:5px;left:5px;font-size:13px">🥰</span></div><div style="color:#2a2a2e;font-size:10px;font-weight:700;margin-top:5px">Date Night</div></div>
-            </div>
-          </div>
+        <!-- MEMORIES — real app screenshot -->
+        <div class="phone"><div class="screen">
+          <img class="shot" loading="lazy" src="shots/memories.jpg" alt="The Memories scrapbook — tilted film photos with date stamps from every night played" />
         </div></div>
       </div>
     </div>
@@ -360,21 +303,27 @@
         <ul><li>Lifetime wins + current win streaks</li><li>Nights · days together · games played</li><li>Your two faces, your whole story</li></ul>
       </div>
       <div class="feat-art">
-        <div class="phone"><div class="screen"><div class="glow"></div>
-          <div class="sb"><span>9:41</span><span>● ● ●</span></div>
-          <div class="scr-pad">
-            <div class="scr-title" style="margin-top:8px;text-align:center">Romeo &amp; Juliet</div>
-            <div style="display:flex;gap:9px;justify-content:center;margin-top:12px">
-              <div class="card2" style="text-align:center;flex:1;padding:11px"><div style="font-size:15px">🔥</div><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--amber)">12</div><div class="mini-muted">Nights</div></div>
-              <div class="card2" style="text-align:center;flex:1;padding:11px"><div style="font-size:15px">📅</div><div style="font-family:var(--display);font-weight:700;font-size:18px">482</div><div class="mini-muted">Days</div></div>
-              <div class="card2" style="text-align:center;flex:1;padding:11px"><div style="font-size:15px">🎮</div><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--pink)">86</div><div class="mini-muted">Games</div></div>
-            </div>
-            <div class="eyebrow" style="margin-top:16px">Head to head</div>
-            <div style="height:11px;border-radius:9px;overflow:hidden;display:flex;margin-top:8px"><span style="width:40%;background:var(--pink)"></span><span style="width:60%;background:var(--blue)"></span></div>
-            <div class="card2" style="margin-top:10px;display:flex;align-items:center;gap:10px"><div class="avt" style="background:linear-gradient(135deg,#a64bff,#6a2ea8)">R</div><div style="flex:1"><div style="font-weight:700;font-size:13px">Romeo</div><div class="mini-muted">Together since Oct 2022</div></div><div style="text-align:center"><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--pink)">9</div><div class="mini-muted" style="font-size:9px">WINS</div></div></div>
-            <div class="card2" style="margin-top:8px;display:flex;align-items:center;gap:10px;border-color:rgba(59,156,246,.45)"><div class="avt" style="background:linear-gradient(135deg,#3b9cf6,#2155a8);position:relative">J<span style="position:absolute;top:-7px;right:-7px;font-size:11px">👑</span></div><div style="flex:1"><div style="font-weight:700;font-size:13px">Juliet</div><div class="mini-muted">🔥 3‑game win streak</div></div><div style="text-align:center"><div style="font-family:var(--display);font-weight:700;font-size:18px;color:var(--blue)">13</div><div class="mini-muted" style="font-size:9px">WINS</div></div></div>
-          </div>
+        <!-- YOU TWO — real app screenshot -->
+        <div class="phone"><div class="screen">
+          <img class="shot" loading="lazy" src="shots/youtwo_h2h.jpg" alt="You Two — Romeo and Juliet's head-to-head: Juliet leads 13 wins to 9 on a 3-game streak" />
         </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRY ONE ROUND -->
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="pill">Try it right here</span><h2 style="margin-top:14px">One warm‑up. One closer. One deeper.</h2><p>Three real prompts from the deck. Read one out loud tonight — that's the whole game.</p></div>
+    <div class="demo-wrap reveal">
+      <div class="demo-meter" data-demo-meter><span class="f0"></span><span></span><span></span></div>
+      <div class="demo-card enter" data-demo-card style="background:linear-gradient(160deg,#2BB6C4,#15505C)">
+        <div class="demo-badge" data-demo-badge>WARM‑UP</div>
+        <div class="demo-q" data-demo-q>What's a small thing that made you smile recently?</div>
+      </div>
+      <div class="demo-next">
+        <button class="btn" type="button" data-demo-next>Go deeper →</button>
       </div>
     </div>
   </div>
@@ -494,6 +443,39 @@
   // Reveal on scroll
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // "Try one round" — three real prompts that warm up like the app does.
+  (() => {
+    const card = document.querySelector("[data-demo-card]");
+    if (!card) return;
+    const badge = document.querySelector("[data-demo-badge]");
+    const q = document.querySelector("[data-demo-q]");
+    const next = document.querySelector("[data-demo-next]");
+    const segs = document.querySelectorAll("[data-demo-meter] span");
+    const rounds = [
+      { b: "WARM‑UP", q: "What's a small thing that made you smile recently?", bg: "linear-gradient(160deg,#2BB6C4,#15505C)", cta: "Go deeper →" },
+      { b: "CLOSER", q: "When do you feel the most loved by me?", bg: "linear-gradient(160deg,#C0392B,#E91E8C)", cta: "All the way →" },
+      { b: "DEEPER", q: "What's something you've wanted to tell me but haven't found the moment for?", bg: "linear-gradient(160deg,#E91E8C,#A64BFF)", cta: "Play the full night — join the waitlist" },
+    ];
+    let i = 0;
+    next.addEventListener("click", () => {
+      i += 1;
+      if (i >= rounds.length) {
+        document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" });
+        document.querySelector("form[data-wl] input[type=email]")?.focus({ preventScroll: true });
+        return;
+      }
+      const r = rounds[i];
+      badge.textContent = r.b;
+      q.textContent = r.q;
+      card.style.background = r.bg;
+      next.textContent = r.cta;
+      segs.forEach((s, k) => { s.className = k <= i ? "f" + i : ""; });
+      card.classList.remove("enter");
+      void card.offsetWidth; // restart the deal-in animation
+      card.classList.add("enter");
+    });
+  })();
 </script>
 </body>
 </html>
